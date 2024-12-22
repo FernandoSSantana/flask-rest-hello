@@ -9,6 +9,7 @@ from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
 from models import db, User
+from routes import user_bp,planets_bp,people_bp,favorites_bp
 #from models import Person
 
 app = Flask(__name__)
@@ -20,6 +21,11 @@ if db_url is not None:
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.register_blueprint(user_bp,url_prefix="/user")
+app.register_blueprint(planets_bp,url_prefix="/planets")
+app.register_blueprint(people_bp,url_prefix="/people")
+app.register_blueprint(favorites_bp,url_prefix="/favorite")
 
 MIGRATE = Migrate(app, db)
 db.init_app(app)
@@ -35,15 +41,6 @@ def handle_invalid_usage(error):
 @app.route('/')
 def sitemap():
     return generate_sitemap(app)
-
-@app.route('/user', methods=['GET'])
-def handle_hello():
-
-    response_body = {
-        "msg": "Hello, this is your GET /user response "
-    }
-
-    return jsonify(response_body), 200
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
