@@ -18,6 +18,8 @@ flask-cors = "*"
 gunicorn = "*"
 mysqlclient = "*"
 flask-admin = "*"
+bcrypt = "*"
+flask-bcrypt = "*"
 
 [requires]
 python_version = "3.10"
