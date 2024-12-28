@@ -10,6 +10,7 @@ from utils import APIException, generate_sitemap
 from admin import setup_admin
 from models import db, User
 from routes import user_bp,planets_bp,people_bp,favorites_bp
+
 #from models import Person
 
 app = Flask(__name__)
